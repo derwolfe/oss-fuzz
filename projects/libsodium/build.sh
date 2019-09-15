@@ -16,11 +16,12 @@
 ################################################################################
 
 # build libsodium
+cd $SRC/libsodium
 ./configure --enable-static LDFLAGS="$CXXFLAGS"
 make -j$(nproc) all
 
 # build fuzzers
-cd ../libsodium-fuzzers
+cd $SRC/libsodium-fuzzers
 for f in *_fuzzer.cc; do
     fuzzer=$(basename "$f" _fuzzer.cc)
     $CXX $CXXFLAGS -std=c++11 -I"$SRC/libsodium/src/libsodium/include" \
